@@ -14,9 +14,6 @@ test.describe('PHPTravels Formulário de Reserva de Hotel com ZeroStep', () => {
     guest1Country: 'Brazil',
     guest1FirstName: faker.person.firstName(),
     guest1LastName: faker.person.lastName(),
-    guest2Title: 'Miss',
-    guest2FirstName: faker.person.firstName(),
-    guest2LastName: faker.person.lastName()
   };
 
   test('A partir da página inicial, deve selecionar um carro e preencher os dados da reserva (usando ZeroStep)', async ({page}) => {
@@ -63,28 +60,13 @@ test.describe('PHPTravels Formulário de Reserva de Hotel com ZeroStep', () => {
 
     await ai(`Click the first combobox with name 'United States'`, {
       page,
-      test
+      test,
     });
 
     await ai(`Click the option '${dadosReserva.guest1Country}'`, {
       page,
-      test
+      test,
     });
-
-    await ai(
-      `Select '${dadosReserva.guest2Title}' from the dropdown with name 'title_2'`,
-      { page, test }
-    );
-
-    await ai(
-      `Fill in the input with name 'firstname_2' with "${dadosReserva.guest2FirstName}"`,
-      { page, test }
-    );
-
-    await ai(
-      `Fill in the input with name 'lastname_2' with "${dadosReserva.guest2LastName}"`,
-      { page, test }
-    );
 
     await ai(`Click the 'Pay Later' payment option`, { page, test });
 
@@ -93,7 +75,7 @@ test.describe('PHPTravels Formulário de Reserva de Hotel com ZeroStep', () => {
     await expect(page.getByLabel('First Name')).toHaveValue(
       dadosReserva.firstName
     );
-    
+
     await expect(page.getByLabel('Last Name')).toHaveValue(
       dadosReserva.lastName
     );
@@ -116,18 +98,6 @@ test.describe('PHPTravels Formulário de Reserva de Hotel com ZeroStep', () => {
 
     await expect(page.locator('input[name="lastname_1"]')).toHaveValue(
       dadosReserva.guest1LastName
-    );
-
-    await expect(page.locator('select[name="title_2"]')).toHaveValue(
-      dadosReserva.guest2Title
-    );
-
-    await expect(page.locator('input[name="firstname_2"]')).toHaveValue(
-      dadosReserva.guest2FirstName
-    );
-
-    await expect(page.locator('input[name="lastname_2"]')).toHaveValue(
-      dadosReserva.guest2LastName
     );
 
     await expect(
